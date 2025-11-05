@@ -27,7 +27,7 @@ setup(
         'six',
         'Flask',
         'marshmallow',
-        'marshmallow_jsonapi',
+        'marshmallow_jsonapi @ git+https://github.com/noodlecom/marshmallow-jsonapi.git@ae3b22d',
         'sqlalchemy'
     ],
     setup_requires=['pytest-runner'],
