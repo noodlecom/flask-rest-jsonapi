@@ -3,7 +3,7 @@
 """Helpers to deal with marshmallow schemas"""
 
 from marshmallow import class_registry
-from marshmallow.base import SchemaABC
+from marshmallow.schema import Schema as SchemaABC
 from marshmallow_jsonapi.fields import Relationship, List, Nested
 
 from flask_rest_jsonapi.exceptions import InvalidInclude

@@ -8,7 +8,7 @@ from sqlalchemy.inspection import inspect
 from sqlalchemy.orm.attributes import QueryableAttribute
 from sqlalchemy.orm import joinedload, ColumnProperty, RelationshipProperty
 from marshmallow import class_registry
-from marshmallow.base import SchemaABC
+from marshmallow.schema import Schema as SchemaABC
 
 from flask import current_app
 from flask_rest_jsonapi.data_layers.base import BaseDataLayer
