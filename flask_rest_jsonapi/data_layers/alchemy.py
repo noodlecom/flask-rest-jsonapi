@@ -570,7 +570,7 @@ class SqlalchemyDataLayer(BaseDataLayer):
                     current_schema = related_schema_cls
             else:
                 try:
-                    field = get_model_field(self.resource.schema, include)
+                    field = getattr(self.model, include)
                 except Exception as e:
                     raise InvalidInclude(str(e))
 
