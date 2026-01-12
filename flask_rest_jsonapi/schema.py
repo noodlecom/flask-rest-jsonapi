@@ -94,7 +94,7 @@ def get_model_field(schema, field):
 
     if schema._declared_fields[field].attribute is not None:
         return schema._declared_fields[field].attribute
-    return getattr(schema, field)
+    return field
 
 def get_nested_fields(schema, model_field=False):
     """Return nested fields of a schema to support a join
