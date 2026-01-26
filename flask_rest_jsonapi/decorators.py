@@ -31,8 +31,9 @@ def check_headers(func):
                 'application/json',
                 'multipart/form-data',
             }:
+                joined_content_type = ', '.join(ALLOWED_CONTENT_TYPES)
                 error = json.dumps(jsonapi_errors([{'source': '',
-                                                    'detail': f'Content-Type header must be in: {', '.join(ALLOWED_CONTENT_TYPES)}',
+                                                    'detail': f'Content-Type header must be in: {joined_content_type}',
                                                     'title': 'Invalid request header',
                                                     'status': '415'}]), cls=JSONEncoder)
                 return make_response(error, 415, {'Content-Type': 'application/vnd.api+json'})
