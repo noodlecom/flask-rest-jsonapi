@@ -11,6 +11,11 @@ from flask_rest_jsonapi.errors import jsonapi_errors
 from flask_rest_jsonapi.exceptions import JsonApiException
 from flask_rest_jsonapi.utils import JSONEncoder
 
+ALLOWED_CONTENT_TYPES = {
+    'application/vnd.api+json',
+    'application/json',
+    'multipart/form-data',
+}
 
 def check_headers(func):
     """Check headers according to jsonapi reference
@@ -21,11 +26,13 @@ def check_headers(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
         if request.method in ('POST', 'PATCH'):
-            if 'Content-Type' not in request.headers or\
-                    'application/vnd.api+json' not in request.headers['Content-Type'] or\
-                    request.headers['Content-Type'] != 'application/vnd.api+json':
+            if request.mimetype not in {
+                'application/vnd.api+json',
+                'application/json',
+                'multipart/form-data',
+            }:
                 error = json.dumps(jsonapi_errors([{'source': '',
-                                                    'detail': "Content-Type header must be application/vnd.api+json",
+                                                    'detail': f'Content-Type header must be in: {', '.join(ALLOWED_CONTENT_TYPES)}',
                                                     'title': 'Invalid request header',
                                                     'status': '415'}]), cls=JSONEncoder)
                 return make_response(error, 415, {'Content-Type': 'application/vnd.api+json'})
