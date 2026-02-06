@@ -1,5 +1,5 @@
 six
-Flask>=0.11
-marshmallow==2.18.0
-marshmallow_jsonapi
+Flask
+marshmallow
+marshmallow_jsonapi @ git+https://github.com/noodlecom/marshmallow-jsonapi.git@ae3b22d
 sqlalchemy
