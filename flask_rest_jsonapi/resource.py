@@ -129,7 +129,7 @@ class ResourceList(with_metaclass(ResourceMeta, Resource)):
 
         schema = compute_schema(self.schema, schema_kwargs, qs, qs.include)
 
-        result = schema.dump(objects).data
+        result = schema.dump(objects)
 
         view_kwargs = (
             request.view_args if getattr(self, "view_kwargs", None) is True else dict()
@@ -156,7 +156,7 @@ class ResourceList(with_metaclass(ResourceMeta, Resource)):
         )
 
         try:
-            data, errors = schema.load(json_data)
+            data = schema.load(json_data)
         except IncorrectTypeError as e:
             errors = e.messages
             for error in errors["errors"]:
@@ -180,7 +180,7 @@ class ResourceList(with_metaclass(ResourceMeta, Resource)):
 
         obj = self.create_object(data, kwargs)
 
-        result = schema.dump(obj).data
+        result = schema.dump(obj)
 
         self.after_post(result)
 
@@ -235,7 +235,7 @@ class ResourceDetail(with_metaclass(ResourceMeta, Resource)):
             self.schema, getattr(self, "get_schema_kwargs", dict()), qs, qs.include
         )
 
-        result = schema.dump(obj).data
+        result = schema.dump(obj)
 
         self.after_get(result)
 
@@ -255,7 +255,7 @@ class ResourceDetail(with_metaclass(ResourceMeta, Resource)):
         schema = compute_schema(self.schema, schema_kwargs, qs, qs.include)
 
         try:
-            data, errors = schema.load(json_data)
+            data = schema.load(json_data, partial=True)
         except IncorrectTypeError as e:
             errors = e.messages
             for error in errors["errors"]:
@@ -291,7 +291,7 @@ class ResourceDetail(with_metaclass(ResourceMeta, Resource)):
 
         obj = self.update_object(data, qs, kwargs)
 
-        result = schema.dump(obj).data
+        result = schema.dump(obj)
 
         self.after_patch(result)
 
