@@ -170,12 +170,6 @@ class ResourceList(with_metaclass(ResourceMeta, Resource)):
                 message["title"] = "Validation error"
             return errors, 422
 
-        if errors:
-            for error in errors["errors"]:
-                error["status"] = "422"
-                error["title"] = "Validation error"
-            return errors, 422
-
         self.before_post(args, kwargs, data=data)
 
         obj = self.create_object(data, kwargs)
