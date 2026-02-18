@@ -1,5 +1,5 @@
 six
 Flask
 marshmallow
-marshmallow_jsonapi @ git+https://github.com/noodlecom/marshmallow-jsonapi.git@ae3b22d
+marshmallow_jsonapi @ git+https://github.com/noodlecom/marshmallow-jsonapi.git@a995f27
 sqlalchemy
