@@ -695,7 +695,7 @@ class SqlalchemyDataLayer(BaseDataLayer):
                     if joinload_object is None:
                         joinload_object = joinedload(field_attr)
                     else:
-                        joinload_object = joinload_object.joinedload(field)
+                        joinload_object = joinload_object.joinedload(field_attr)
 
                     related_schema_cls = get_related_schema(current_schema, obj)
 
@@ -716,7 +716,8 @@ class SqlalchemyDataLayer(BaseDataLayer):
                 except Exception as e:
                     raise InvalidInclude(str(e))
 
-                joinload_object = joinedload(field)
+                field_attr = getattr(self.model, field)
+                joinload_object = joinedload(field_attr)
 
             query = query.options(joinload_object)
 
