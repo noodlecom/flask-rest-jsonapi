@@ -683,14 +683,17 @@ class SqlalchemyDataLayer(BaseDataLayer):
 
             if "." in include:
                 current_schema = self.resource.schema
+                current_model = self.model
                 for obj in include.split("."):
                     try:
                         field = get_model_field(current_schema, obj)
                     except Exception as e:
                         raise InvalidInclude(str(e))
 
+                    field_attr = getattr(current_model, field)
+
                     if joinload_object is None:
-                        joinload_object = joinedload(field)
+                        joinload_object = joinedload(field_attr)
                     else:
                         joinload_object = joinload_object.joinedload(field)
 
@@ -704,6 +707,9 @@ class SqlalchemyDataLayer(BaseDataLayer):
                         )
 
                     current_schema = related_schema_cls
+                    current_model = (
+                        getattr(current_model, field).property.mapper.class_
+                    )
             else:
                 try:
                     field = getattr(self.model, include)
