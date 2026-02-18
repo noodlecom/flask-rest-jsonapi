@@ -716,8 +716,7 @@ class SqlalchemyDataLayer(BaseDataLayer):
                 except Exception as e:
                     raise InvalidInclude(str(e))
 
-                field_attr = getattr(self.model, field)
-                joinload_object = joinedload(field_attr)
+                joinload_object = joinedload(field)
 
             query = query.options(joinload_object)
 
